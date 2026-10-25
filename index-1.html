@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Khao Niew Thai Bistro – thajská a laoská kuchyně v Brně, Černá Pole. Zemědělská 1693/38.">
+<title>Khao Niew Thai Bistro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Manrope:wght@300;400;500;600&family=Noto+Serif+Thai:wght@400;600&display=swap">
+<style>
+/* Layout: smoked-charcoal night market; one pinned 3D hero (bamboo sticky-rice basket whose lid lifts on scroll), then an editorial menu, story, reviews and booking on the same dark ground */
+:root{
+  --char:#13110d;        /* smoked charcoal ground */
+  --char-2:#1c1914;      /* raised panels */
+  --rice:#f1eadc;        /* rice-paper text */
+  --husk:#a99f8d;        /* quiet text */
+  --turmeric:#e3a531;    /* single warm accent */
+  --chili:#c8391f;       /* spice, used sparingly */
+  --leaf:#3f5e3a;        /* banana leaf */
+  --line:rgba(241,234,220,.13);
+  --display:"Fraunces","Iowan Old Style",Georgia,serif;
+  --body:"Manrope","Helvetica Neue",Arial,sans-serif;
+  --thai:"Noto Serif Thai","Thonburi",serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--char);color:var(--rice);font:400 1rem/1.65 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--char)}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance;letter-spacing:-.01em}
+:focus-visible{outline:2px solid var(--turmeric);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font:600 .7rem/1.4 var(--body);letter-spacing:.24em;text-transform:uppercase;color:var(--turmeric)}
+.thai{font-family:var(--thai);font-weight:400}
+
+/* header */
+header{position:fixed;inset:0 0 auto;top:env(safe-area-inset-top,0px);z-index:50;transition:background .5s,backdrop-filter .5s,border-color .5s;border-bottom:1px solid transparent}
+header.solid{background:rgba(19,17,13,.78);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-color:var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:16px}
+.logo{display:flex;align-items:baseline;gap:12px;text-decoration:none}
+.logo b{font:500 1.5rem/1 var(--display);letter-spacing:-.01em}
+.logo .thai{font-size:1rem;color:var(--turmeric)}
+.links{display:flex;gap:26px;font-size:.86rem}
+.links a{text-decoration:none;color:var(--husk);transition:color .3s}
+.links a:hover{color:var(--rice)}
+.nav-r{display:flex;align-items:center;gap:10px}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px}
+.lang button{background:none;border:0;color:var(--husk);font:600 .7rem/1 var(--body);letter-spacing:.1em;padding:7px 10px;border-radius:999px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--rice);color:var(--char)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:999px;font:600 .82rem/1 var(--body);letter-spacing:.04em;text-decoration:none;cursor:pointer;border:1px solid var(--line);background:rgba(241,234,220,.04);color:var(--rice);transition:background .35s,border-color .35s,color .35s,transform .25s}
+.btn:hover{border-color:var(--turmeric)}
+.btn.gold{background:var(--turmeric);border-color:var(--turmeric);color:#1a1206}
+.btn.gold:hover{background:#f0b84a}
+@media (max-width:960px){.links{display:none}}
+@media (max-width:520px){.nav .btn{display:none}}
+
+/* pinned 3D hero */
+.hero{position:relative;height:240vh}
+.pin{position:sticky;top:0;height:100vh;overflow:hidden;background:radial-gradient(70% 60% at 72% 46%,#2a2216 0%,var(--char) 65%)}
+#scene{position:absolute;inset:0;width:100%;height:100%;display:block}
+.vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 60% 50%,transparent 55%,rgba(10,9,7,.7))}
+.hero-copy{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;align-items:center;pointer-events:none}
+.hero-copy .wrap{width:100%}
+.hc{max-width:640px;pointer-events:auto}
+.hero h1{font-size:clamp(3rem,5.6vw,5.2rem);line-height:.96;margin-top:22px;font-variation-settings:"opsz" 144}
+.hero h1 em{font-style:italic;color:var(--turmeric)}
+.hero .lede{color:var(--husk);font-size:1.08rem;max-width:30rem;margin:26px 0 34px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.meta{display:flex;gap:28px;flex-wrap:wrap;margin-top:44px;font-size:.84rem;color:var(--husk)}
+.meta strong{display:block;font:400 2rem/1 var(--display);color:var(--rice);margin-bottom:6px}
+.status{display:inline-flex;align-items:center;gap:8px}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--husk)}
+.status.open i{background:#7ccf6b;box-shadow:0 0 0 4px rgba(124,207,107,.18)}
+.caption{position:absolute;left:max(16px,env(safe-area-inset-left,0px),calc((100vw - 1240px)/2 + 16px));bottom:7vh;width:min(330px,80vw);border:1px solid var(--line);border-radius:20px;padding:20px 22px;background:rgba(19,17,13,.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:opacity .7s,transform .7s cubic-bezier(.2,.7,.1,1)}
+.caption:not(.on){opacity:0;transform:translateY(16px)}
+.caption .thai{font-size:1.5rem;color:var(--turmeric);line-height:1.2}
+.caption p{margin:8px 0 0;font-size:.92rem;color:var(--husk)}
+.scrollcue{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);font:600 .64rem/1 var(--body);letter-spacing:.3em;text-transform:uppercase;color:var(--husk);display:flex;flex-direction:column;align-items:center;gap:10px}
+.scrollcue i{width:1px;height:40px;background:linear-gradient(var(--turmeric),transparent)}
+@media (max-width:820px){
+  .hero-copy{align-items:flex-start;padding-top:96px}
+  .hero h1{font-size:clamp(2.7rem,12vw,4rem)}
+  .hero .lede{font-size:1rem;margin:18px 0 24px}
+  .meta{margin-top:26px;gap:20px}
+  .caption{left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));width:auto;bottom:4vh}
+  .scrollcue{display:none}
+}
+@media (prefers-reduced-motion:no-preference){
+  .rise{animation:rise 1.3s cubic-bezier(.16,.8,.14,1) both}
+  .d1{animation-delay:.12s}.d2{animation-delay:.24s}.d3{animation-delay:.36s}.d4{animation-delay:.48s}
+  @keyframes rise{from{transform:translateY(28px);opacity:.15;filter:blur(6px)}to{transform:none;opacity:1;filter:none}}
+}
+
+/* marquee */
+.marquee{border-block:1px solid var(--line);overflow:hidden;padding-block:20px}
+.track{display:flex;gap:44px;width:max-content;font:italic 300 1.7rem/1 var(--display);color:var(--husk);white-space:nowrap}
+.track span::after{content:"✦";font-style:normal;font-size:.75rem;color:var(--turmeric);margin-left:44px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.track{animation:slide 46s linear infinite}@keyframes slide{to{transform:translateX(-50%)}}}
+
+/* story */
+section{padding-block:120px}
+.story{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.story .big{font:400 clamp(4rem,11vw,9rem)/1 var(--thai);color:var(--turmeric);opacity:.95}
+.story h2{font-size:clamp(2.2rem,4.6vw,3.8rem);line-height:1.02;margin:18px 0 22px}
+.story h2 em{font-style:italic;color:var(--turmeric)}
+.story p{color:var(--husk);max-width:34rem;margin:0 0 14px}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:30px;border-top:1px solid var(--line)}
+.facts div{padding:18px 16px 0 0}
+.facts div+div{padding-left:16px;border-left:1px solid var(--line)}
+.facts b{display:block;font:400 1.9rem/1 var(--display);margin-bottom:6px}
+.facts span{font-size:.8rem;color:var(--husk)}
+@media (max-width:860px){.story{grid-template-columns:1fr;gap:20px}}
+
+/* menu */
+.menu-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:46px}
+.menu-head h2{font-size:clamp(2.6rem,6vw,5rem);line-height:.96;margin-top:16px}
+.menu-head h2 em{font-style:italic;color:var(--turmeric)}
+.menu-head p{color:var(--husk);max-width:28rem;margin:0}
+.menu{display:grid;grid-template-columns:1fr 1fr;column-gap:64px}
+.dish{display:grid;grid-template-columns:2.6rem 1fr auto;gap:6px 16px;padding:22px 6px;border-top:1px solid var(--line);align-items:baseline;transition:background .4s,padding .4s;border-radius:4px;min-width:0}
+.dish:hover{background:rgba(241,234,220,.035);padding-left:14px}
+.dish .no{font:500 .8rem/1 var(--body);color:var(--turmeric);font-variant-numeric:tabular-nums}
+.dish h3{font-size:1.45rem;line-height:1.15}
+.dish .price{font:500 1rem/1 var(--body);font-variant-numeric:tabular-nums;white-space:nowrap}
+.dish p{grid-column:2/4;margin:0;color:var(--husk);font-size:.92rem}
+.dish.sig{background:linear-gradient(120deg,rgba(227,165,49,.10),transparent 70%)}
+.dish .tag{display:inline-block;margin-left:10px;font:600 .62rem/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#1a1206;background:var(--turmeric);padding:5px 8px;border-radius:999px;vertical-align:middle}
+.menu-note{margin-top:30px;color:var(--husk);font-size:.9rem}
+@media (max-width:860px){.menu{grid-template-columns:1fr}}
+
+/* reviews */
+.reviews{background:var(--char-2);border-block:1px solid var(--line)}
+.rev-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:44px}
+.rev-head h2{font-size:clamp(2.4rem,5vw,4.2rem);line-height:1}
+.score{display:flex;align-items:baseline;gap:12px}
+.score strong{font:400 4.4rem/1 var(--display)}
+.score span{color:var(--husk);font-size:.9rem}
+.stars{color:var(--turmeric);letter-spacing:.14em}
+.rev-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;perspective:1100px}
+.rev{border:1px solid var(--line);border-radius:22px;padding:28px;background:var(--char);display:flex;flex-direction:column;gap:18px;transition:transform .6s cubic-bezier(.16,.8,.14,1),border-color .4s;transform-style:preserve-3d}
+.rev:hover{border-color:rgba(227,165,49,.4)}
+.rev blockquote{margin:0;font:italic 300 1.3rem/1.4 var(--display)}
+.rev footer{margin-top:auto;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--husk)}
+@media (max-width:900px){.rev-grid{grid-template-columns:1fr}}
+
+/* order + booking */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.panel{border:1px solid var(--line);border-radius:28px;padding:clamp(26px,4vw,44px);background:linear-gradient(160deg,var(--char-2),var(--char));min-width:0}
+.panel h2{font-size:clamp(2rem,3.6vw,3rem);line-height:1.02;margin:14px 0 14px}
+.panel h2 em{font-style:italic;color:var(--turmeric)}
+.panel p{color:var(--husk);margin:0 0 24px}
+.apps{display:grid;gap:10px}
+.app{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 20px;border:1px solid var(--line);border-radius:16px;text-decoration:none;transition:border-color .3s,background .3s,transform .3s}
+.app:hover{border-color:var(--turmeric);background:rgba(227,165,49,.06);transform:translateX(4px)}
+.app b{font:500 1.15rem/1 var(--display)}
+.app span{font-size:.8rem;color:var(--husk)}
+form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{display:flex;flex-direction:column;gap:6px;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--husk);min-width:0}
+input,select,textarea{font:400 1rem/1.3 var(--body);color:var(--rice);background:var(--char);border:1px solid var(--line);border-radius:12px;padding:13px 14px;width:100%;min-width:0}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--turmeric)}
+.full{grid-column:1/-1}
+.form-msg{grid-column:1/-1;min-height:1.4em;font-size:.92rem;color:var(--turmeric)}
+@media (max-width:900px){.split{grid-template-columns:1fr}}
+@media (max-width:480px){form{grid-template-columns:1fr}}
+
+/* visit */
+.visit{display:grid;grid-template-columns:1.2fr 1fr;gap:56px;align-items:start}
+.visit h2{font-size:clamp(2.8rem,6.4vw,5.6rem);line-height:.94}
+.visit h2 em{font-style:italic;color:var(--turmeric)}
+dl{margin:0}
+.row{display:grid;grid-template-columns:7rem 1fr;gap:12px;padding:18px 0;border-bottom:1px solid var(--line);align-items:center}
+.row:first-child{border-top:1px solid var(--line)}
+.row dt{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--husk)}
+.row dd{margin:0;font-size:1.05rem;display:flex;gap:10px;flex-wrap:wrap;align-items:center;min-width:0;overflow-wrap:anywhere}
+.row dd a{text-decoration:none;border-bottom:1px solid var(--line)}
+.row dd a:hover{border-color:var(--turmeric)}
+.hours{display:grid;grid-template-columns:auto auto;gap:4px 18px;font-variant-numeric:tabular-nums}
+.hours .today{color:var(--turmeric)}
+@media (max-width:860px){.visit{grid-template-columns:1fr;gap:30px}.row{grid-template-columns:1fr}}
+footer.site{border-top:1px solid var(--line);padding-block:28px;font-size:.8rem;color:var(--husk)}
+footer.site .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* reveal: always visible, slides into place */
+@media (prefers-reduced-motion:no-preference){.rv{transform:translateY(34px);transition:transform 1.2s cubic-bezier(.16,.8,.14,1)}.rv.in{transform:none}}
+</style>
+</head>
+<body>
+<header id="hdr">
+  <div class="wrap nav">
+    <a class="logo" href="#top"><b>Khao Niew</b><span class="thai" lang="th">ข้าวเหนียว</span></a>
+    <nav class="links" aria-label="Menu">
+      <a href="#pribeh" data-i18n="n1">Příběh</a><a href="#menu" data-i18n="n2">Menu</a><a href="#recenze" data-i18n="n3">Recenze</a><a href="#objednat" data-i18n="n4">Objednat</a><a href="#kontakt" data-i18n="n5">Kontakt</a>
+    </nav>
+    <div class="nav-r">
+      <div class="lang" role="group" aria-label="Jazyk / Language"><button type="button" data-lang="cs" aria-pressed="true">CZ</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
+      <a class="btn gold" href="#rezervace" data-i18n="book">Rezervovat stůl</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" id="hero" style="padding:0">
+    <div class="pin">
+      <canvas id="scene" aria-label="3D bambusový košík s lepkavou rýží, chilli, limetkou a bazalkou"></canvas>
+      <div class="vignette" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <div class="wrap"><div class="hc">
+          <div class="eyebrow rise" data-i18n="eyebrow">Thajská a laoská kuchyně · Černá Pole, Brno</div>
+          <h1 class="rise d1" data-i18n="h1">Chuť Thajska<br>a Laosu, <em>bez kompromisů.</em></h1>
+          <p class="lede rise d2" data-i18n="lede">Čerstvé bylinky, poctivé pálivé kari a lepkavá rýže v bambusovém košíku. Jídla, jaká se vaří doma v Thajsku a v Laosu.</p>
+          <div class="cta rise d3">
+            <a class="btn gold mag" href="#menu" data-i18n="ctaMenu">Prohlédnout menu</a>
+            <a class="btn mag" href="#objednat" data-i18n="ctaOrder">Objednat domů</a>
+          </div>
+          <div class="meta rise d4">
+            <div><strong>4,7 <span class="stars" aria-hidden="true">★</span></strong><span data-i18n="rating">103 recenzí na Googlu</span></div>
+            <div><strong>11–20</strong><span data-i18n="hoursShort">Po–So, neděle zavřeno</span></div>
+            <div><strong id="nowState">&nbsp;</strong><span class="status" id="nowChip"><i></i><span id="nowText">&nbsp;</span></span></div>
+          </div>
+        </div></div>
+      </div>
+      <div class="caption" id="cap" aria-live="polite">
+        <div class="thai" lang="th">ข้าวเหนียว</div>
+        <p data-i18n="cap">Khao niew znamená lepkavá rýže. Podává se v bambusovém košíku a jí se rukou.</p>
+      </div>
+      <div class="scrollcue" aria-hidden="true"><span data-i18n="scroll">Posuňte</span><i></i></div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true"><div class="track">
+    <span>Lab Pet</span><span>Keng Kari Deng Kai</span><span>Gra Phao Mu</span><span>Nua Prik Thai</span><span>Pet Thod</span><span>Khao Niew Set</span><span>Mango Sticky Rice</span>
+    <span>Lab Pet</span><span>Keng Kari Deng Kai</span><span>Gra Phao Mu</span><span>Nua Prik Thai</span><span>Pet Thod</span><span>Khao Niew Set</span><span>Mango Sticky Rice</span>
+  </div></div>
+
+  <section id="pribeh">
+    <div class="wrap story">
+      <div class="big rv" lang="th" aria-hidden="true">ข้าวเหนียว</div>
+      <div class="rv">
+        <div class="eyebrow" data-i18n="stEy">Proč Khao Niew</div>
+        <h2 data-i18n="stH">Pojmenovali jsme se<br>po <em>lepkavé rýži.</em></h2>
+        <p data-i18n="stP1">V Laosu a na severovýchodě Thajska je lepkavá rýže základ každého jídla. Vaří se v páře, podává se v bambusovém košíku a jí se rukama, s kari, pálivými saláty laab nebo s mangem.</p>
+        <p data-i18n="stP2">Přesně tak ji servírujeme i v Brně. S čerstvými bylinkami, bez ochucování podle evropského průměru.</p>
+        <div class="facts">
+          <div><b>4,7</b><span data-i18n="f1">hodnocení na Googlu</span></div>
+          <div><b>13</b><span data-i18n="f2">hlavních jídel</span></div>
+          <div><b>3</b><span data-i18n="f3">rozvozové aplikace</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu" style="padding-top:40px">
+    <div class="wrap">
+      <div class="menu-head rv">
+        <div><div class="eyebrow" data-i18n="mEy">Menu · hlavní jídla</div><h2 data-i18n="mH">Od kari<br>po <em>laab.</em></h2></div>
+        <p data-i18n="mP">Výběr hlavních jídel. Polévky, nudle, rýži a předkrmy najdete v bistru a v rozvozových aplikacích.</p>
+      </div>
+      <div class="menu rv" id="menuList"></div>
+      <p class="menu-note" data-i18n="mNote">Ceny dle aktuální nabídky v aplikaci Wolt, v bistru se mohou lišit.</p>
+    </div>
+  </section>
+
+  <section class="reviews" id="recenze">
+    <div class="wrap">
+      <div class="rev-head rv">
+        <div><div class="eyebrow" data-i18n="rEy">Recenze</div><h2 data-i18n="rH">Co říkají hosté</h2></div>
+        <div class="score"><strong>4,7</strong><div><div class="stars" aria-label="4,7 z 5">★★★★★</div><span data-i18n="rCount">103 recenzí na Googlu</span></div></div>
+      </div>
+      <div class="rev-grid">
+        <article class="rev tilt rv"><blockquote>“Authentic food from Laos/Thailand, best in Brno and vicinity hands down!”</blockquote><footer data-i18n="rSrc">Google recenze</footer></article>
+        <article class="rev tilt rv"><blockquote>“Lao chicken salad was absolutely mindblowing.”</blockquote><footer data-i18n="rSrc">Google recenze</footer></article>
+        <article class="rev tilt rv"><blockquote>“Mango sticky rice 10000/10”</blockquote><footer data-i18n="rSrc">Google recenze</footer></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="objednat">
+    <div class="wrap split">
+      <div class="panel rv">
+        <div class="eyebrow" data-i18n="oEy">Rozvoz</div>
+        <h2 data-i18n="oH">Thajsko<br><em>až ke dveřím.</em></h2>
+        <p data-i18n="oP">Objednejte si přes svou oblíbenou aplikaci.</p>
+        <div class="apps">
+          <a class="app" href="https://wolt.com/cs/cze/brno/restaurant/khaoniew-thai-bistro" target="_blank" rel="noopener"><b>Wolt</b><span data-i18n="oGo">Otevřít →</span></a>
+          <a class="app" href="https://www.foodora.cz/" target="_blank" rel="noopener"><b>foodora</b><span data-i18n="oGo">Otevřít →</span></a>
+          <a class="app" href="https://bolt.eu/cs-cz/food/" target="_blank" rel="noopener"><b>Bolt Food</b><span data-i18n="oGo">Otevřít →</span></a>
+        </div>
+      </div>
+      <div class="panel rv" id="rezervace">
+        <div class="eyebrow" data-i18n="bEy">Rezervace</div>
+        <h2 data-i18n="bH">Stůl pro vás<br><em>připravíme.</em></h2>
+        <form id="bookForm" novalidate>
+          <label><span data-i18n="fName">Jméno</span><input id="bName" name="name" autocomplete="name" required></label>
+          <label><span data-i18n="fPhone">Telefon</span><input id="bPhone" name="phone" type="tel" autocomplete="tel" required></label>
+          <label><span data-i18n="fDate">Datum</span><input id="bDate" name="date" type="date" required></label>
+          <label><span data-i18n="fTime">Čas</span><select id="bTime" name="time"></select></label>
+          <label class="full"><span data-i18n="fGuests">Počet osob</span><select id="bGuests" name="guests"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></label>
+          <div class="full"><button class="btn gold" type="submit" data-i18n="fSend">Odeslat rezervaci</button></div>
+          <div class="form-msg" id="formMsg" role="status"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontakt" style="padding-top:20px">
+    <div class="wrap visit">
+      <div class="rv">
+        <div class="eyebrow" data-i18n="vEy">Kde nás najdete</div>
+        <h2 data-i18n="vH">Zemědělská<br><em>38, Brno.</em></h2>
+        <div class="cta" style="margin-top:30px">
+          <a class="btn gold" href="tel:+420775003044" data-i18n="call">Zavolat</a>
+          <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Khao+Niew+Thai+Bistro+Zem%C4%9Bd%C4%9Blsk%C3%A1+38+Brno" target="_blank" rel="noopener" data-i18n="map">Otevřít mapu</a>
+        </div>
+      </div>
+      <dl class="rv">
+        <div class="row"><dt data-i18n="lAddr">Adresa</dt><dd>Zemědělská 1693/38, 613 00 Brno – Černá Pole</dd></div>
+        <div class="row"><dt data-i18n="lTel">Telefon</dt><dd><a href="tel:+420775003044">+420 775 003 044</a></dd></div>
+        <div class="row"><dt data-i18n="lHours">Otevřeno</dt><dd><div class="hours" id="hoursList"></div></dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer class="site"><div class="wrap"><span>© Khao Niew Thai Bistro, Brno</span><span data-i18n="foot">Návrh nového webu</span></div></footer>
+
+<script>
+/* ---------- content, i18n, UI (no 3D needed) ---------- */
+(function(){
+  const DISHES=[
+    {no:14,n:"Keng Kari Deng Kai",p:209,cs:"Červené kari s kuřecím masem.",en:"Red curry with chicken."},
+    {no:15,n:"Nua Kari Khiew",p:219,cs:"Zelené kari s hovězím masem.",en:"Green curry with beef."},
+    {no:16,n:"Keng Lieng Tofu",p:209,cs:"Kořeněný zeleninový vývar s tofu.",en:"Peppery vegetable broth with tofu."},
+    {no:17,n:"Nua Piew Wan",p:229,cs:"Hovězí na sladkokyselý způsob.",en:"Sweet and sour beef."},
+    {no:18,n:"Nua Prik Thai",p:229,cs:"Hovězí s černým pepřem.",en:"Beef with black pepper."},
+    {no:19,n:"Gra Phao Mu",p:209,cs:"Vepřové se svatou bazalkou a chilli.",en:"Pork with holy basil and chilli."},
+    {no:20,n:"Kai Lum Mit",p:209,cs:"Kuřecí specialita.",en:"Chicken speciality."},
+    {no:21,n:"Lab Neua",p:219,cs:"Pikantní laoský salát laab s hovězím.",en:"Spicy Lao laab salad with beef."},
+    {no:22,n:"Lab Pet",p:249,cs:"Laab s kachnou, bylinkami a praženou rýží.",en:"Duck laab with herbs and toasted rice."},
+    {no:23,n:"Pet Kari Deng",p:249,cs:"Červené kari s kachnou.",en:"Red curry with duck."},
+    {no:24,n:"Pet Thod",p:259,cs:"Křupavě smažená kachna.",en:"Crispy fried duck."},
+    {no:25,n:"Khao Niew Set",p:309,cs:"Set s lepkavou rýží, podle kterého jsme pojmenovaní.",en:"The sticky rice set we're named after.",sig:true},
+    {no:26,n:"Grilovaný losos",en_n:"Grilled salmon",p:229,cs:"Grilovaný losos.",en:"Grilled salmon."}
+  ];
+  const T={
+    cs:{n1:"Příběh",n2:"Menu",n3:"Recenze",n4:"Objednat",n5:"Kontakt",book:"Rezervovat stůl",
+      eyebrow:"Thajská a laoská kuchyně · Černá Pole, Brno",h1:"Chuť Thajska<br>a Laosu, <em>bez kompromisů.</em>",
+      lede:"Čerstvé bylinky, poctivé pálivé kari a lepkavá rýže v bambusovém košíku. Jídla, jaká se vaří doma v Thajsku a v Laosu.",
+      ctaMenu:"Prohlédnout menu",ctaOrder:"Objednat domů",rating:"103 recenzí na Googlu",hoursShort:"Po–So, neděle zavřeno",
+      cap:"Khao niew znamená lepkavá rýže. Podává se v bambusovém košíku a jí se rukou.",scroll:"Posuňte",
+      stEy:"Proč Khao Niew",stH:"Pojmenovali jsme se<br>po <em>lepkavé rýži.</em>",
+      stP1:"V Laosu a na severovýchodě Thajska je lepkavá rýže základ každého jídla. Vaří se v páře, podává se v bambusovém košíku a jí se rukama, s kari, pálivými saláty laab nebo s mangem.",
+      stP2:"Přesně tak ji servírujeme i v Brně. S čerstvými bylinkami, bez ochucování podle evropského průměru.",
+      f1:"hodnocení na Googlu",f2:"hlavních jídel",f3:"rozvozové aplikace",
+      mEy:"Menu · hlavní jídla",mH:"Od kari<br>po <em>laab.</em>",mP:"Výběr hlavních jídel. Polévky, nudle, rýži a předkrmy najdete v bistru a v rozvozových aplikacích.",
+      mNote:"Ceny dle aktuální nabídky v aplikaci Wolt, v bistru se mohou lišit.",sig:"Naše jméno",
+      rEy:"Recenze",rH:"Co říkají hosté",rCount:"103 recenzí na Googlu",rSrc:"Google recenze",
+      oEy:"Rozvoz",oH:"Thajsko<br><em>až ke dveřím.</em>",oP:"Objednejte si přes svou oblíbenou aplikaci.",oGo:"Otevřít →",
+      bEy:"Rezervace",bH:"Stůl pro vás<br><em>připravíme.</em>",fName:"Jméno",fPhone:"Telefon",fDate:"Datum",fTime:"Čas",fGuests:"Počet osob",fSend:"Odeslat rezervaci",
+      fErr:"Vyplňte prosím jméno, telefon a datum.",fSun:"V neděli máme zavřeno, vyberte prosím jiný den.",
+      fOk:"Děkujeme, {name}. Rezervace na {date} v {time} pro {g} os. je připravená k odeslání. V této ukázce se zatím nikam neodesílá, potvrďte ji prosím telefonicky na +420 775 003 044.",
+      vEy:"Kde nás najdete",vH:"Zemědělská<br><em>38, Brno.</em>",call:"Zavolat",map:"Otevřít mapu",lAddr:"Adresa",lTel:"Telefon",lHours:"Otevřeno",
+      days:["Pondělí","Úterý","Středa","Čtvrtek","Pátek","Sobota","Neděle"],closed:"zavřeno",open:"Otevřeno",closedNow:"Zavřeno",
+      openUntil:"do 20:00",opensAt:"otevíráme v 11:00",opensMon:"otevíráme v pondělí",foot:"Návrh nového webu"},
+    en:{n1:"Story",n2:"Menu",n3:"Reviews",n4:"Order",n5:"Contact",book:"Book a table",
+      eyebrow:"Thai and Lao kitchen · Černá Pole, Brno",h1:"Thai and Lao<br>flavour, <em>uncompromised.</em>",
+      lede:"Fresh herbs, honest fiery curries and sticky rice in a bamboo basket. Food the way it's cooked at home in Thailand and Laos.",
+      ctaMenu:"See the menu",ctaOrder:"Order delivery",rating:"103 Google reviews",hoursShort:"Mon–Sat, closed Sunday",
+      cap:"Khao niew means sticky rice. It's served in a bamboo basket and eaten by hand.",scroll:"Scroll",
+      stEy:"Why Khao Niew",stH:"We're named<br>after <em>sticky rice.</em>",
+      stP1:"In Laos and north-east Thailand, sticky rice is the base of every meal. It's steamed, served in a bamboo basket and eaten by hand, with curries, spicy laab salads or mango.",
+      stP2:"That's exactly how we serve it in Brno. With fresh herbs, and no toning down for European taste.",
+      f1:"Google rating",f2:"main dishes",f3:"delivery apps",
+      mEy:"Menu · mains",mH:"From curry<br>to <em>laab.</em>",mP:"A selection of mains. Soups, noodles, rice and starters are in the bistro and on the delivery apps.",
+      mNote:"Prices as currently listed on Wolt; in the bistro they may differ.",sig:"Our name",
+      rEy:"Reviews",rH:"What guests say",rCount:"103 Google reviews",rSrc:"Google review",
+      oEy:"Delivery",oH:"Thailand,<br><em>to your door.</em>",oP:"Order through your favourite app.",oGo:"Open →",
+      bEy:"Reservations",bH:"We'll have<br><em>a table ready.</em>",fName:"Name",fPhone:"Phone",fDate:"Date",fTime:"Time",fGuests:"Guests",fSend:"Send reservation",
+      fErr:"Please fill in your name, phone and date.",fSun:"We're closed on Sundays, please pick another day.",
+      fOk:"Thank you, {name}. Your table for {g} on {date} at {time} is ready to send. This preview doesn't send it yet, so please confirm by phone on +420 775 003 044.",
+      vEy:"Find us",vH:"Zemědělská<br><em>38, Brno.</em>",call:"Call us",map:"Open map",lAddr:"Address",lTel:"Phone",lHours:"Hours",
+      days:["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],closed:"closed",open:"Open now",closedNow:"Closed",
+      openUntil:"until 8 pm",opensAt:"opens at 11 am",opensMon:"opens Monday",foot:"New website concept"}
+  };
+  let lang="cs";
+  try{const s=localStorage.getItem("kn-lang"); if(s&&T[s]) lang=s;}catch(e){}
+
+  // Prague time
+  function pragueNow(){
+    const f=new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Prague",weekday:"short",hour:"2-digit",minute:"2-digit",hour12:false});
+    const parts=Object.fromEntries(f.formatToParts(new Date()).map(p=>[p.type,p.value]));
+    const wd=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].indexOf(parts.weekday);
+    return {wd, min:parseInt(parts.hour,10)%24*60+parseInt(parts.minute,10)};
+  }
+  function renderStatus(){
+    const d=T[lang], n=pragueNow(), open=n.wd>=0&&n.wd<6&&n.min>=660&&n.min<1200;
+    document.getElementById("nowState").textContent=open?d.open:d.closedNow;
+    const chip=document.getElementById("nowChip"); chip.classList.toggle("open",open);
+    document.getElementById("nowText").textContent=open?d.openUntil:(n.wd===6||(n.wd===5&&n.min>=1200)?d.opensMon:d.opensAt);
+    document.getElementById("hoursList").innerHTML=d.days.map((day,i)=>`<span class="${i===n.wd?'today':''}">${day}</span><span class="${i===n.wd?'today':''}">${i<6?'11:00–20:00':d.closed}</span>`).join("");
+  }
+  function renderMenu(){
+    const d=T[lang];
+    document.getElementById("menuList").innerHTML=DISHES.map(x=>`<div class="dish${x.sig?' sig':''}"><span class="no">${x.no}</span><h3>${lang==='en'&&x.en_n?x.en_n:x.n}${x.sig?`<span class="tag">${d.sig}</span>`:''}</h3><span class="price">${x.p} Kč</span><p>${x[lang]}</p></div>`).join("");
+  }
+  function apply(l){
+    lang=l; const d=T[l]; document.documentElement.lang=l;
+    document.querySelectorAll("[data-i18n]").forEach(el=>{const v=d[el.dataset.i18n]; if(v!==undefined) el.innerHTML=v;});
+    document.querySelectorAll("[data-lang]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===l?"true":"false"));
+    renderMenu(); renderStatus(); document.getElementById("formMsg").textContent="";
+    try{localStorage.setItem("kn-lang",l);}catch(e){}
+  }
+  document.querySelectorAll("[data-lang]").forEach(b=>b.addEventListener("click",()=>apply(b.dataset.lang)));
+
+  // booking form
+  const timeSel=document.getElementById("bTime");
+  for(let h=11;h<20;h++) for(const m of ["00","30"]) timeSel.insertAdjacentHTML("beforeend",`<option${h===18&&m==="00"?" selected":""}>${h}:${m}</option>`);
+  const dateIn=document.getElementById("bDate");
+  const tz=new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Prague",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());
+  dateIn.min=tz;
+  document.getElementById("bookForm").addEventListener("submit",e=>{
+    e.preventDefault(); const d=T[lang], msg=document.getElementById("formMsg");
+    const name=document.getElementById("bName").value.trim(), phone=document.getElementById("bPhone").value.trim(), date=dateIn.value;
+    if(!name||!phone||!date){msg.textContent=d.fErr; return;}
+    const wd=new Date(date+"T12:00:00").getDay(); if(wd===0){msg.textContent=d.fSun; return;}
+    const ds=new Date(date+"T12:00:00").toLocaleDateString(lang==="cs"?"cs-CZ":"en-GB",{day:"numeric",month:"long"});
+    msg.textContent=d.fOk.replace("{name}",name).replace("{date}",ds).replace("{time}",timeSel.value).replace("{g}",document.getElementById("bGuests").value);
+  });
+
+  // header, reveals, tilt, magnetic
+  const hdr=document.getElementById("hdr");
+  addEventListener("scroll",()=>hdr.classList.toggle("solid",scrollY>40),{passive:true});
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}}),{threshold:.08});
+  document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(!reduce&&matchMedia("(hover:hover)").matches){
+    document.querySelectorAll(".tilt").forEach(c=>{
+      c.addEventListener("pointermove",e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`rotateX(${-y*9}deg) rotateY(${x*11}deg) translateY(-4px)`;});
+      c.addEventListener("pointerleave",()=>{c.style.transform="";});
+    });
+    document.querySelectorAll(".mag").forEach(b=>{
+      b.addEventListener("pointermove",e=>{const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.2}px,${(e.clientY-r.top-r.height/2)*.35}px)`;});
+      b.addEventListener("pointerleave",()=>{b.style.transform="";});
+    });
+  }
+  // hero progress + caption
+  const hero=document.getElementById("hero"), cap=document.getElementById("cap");
+  window.heroP=()=>{const r=hero.getBoundingClientRect();return Math.min(1,Math.max(0,-r.top/Math.max(1,hero.offsetHeight-innerHeight)));};
+  addEventListener("scroll",()=>cap.classList.toggle("on",window.heroP()>.28),{passive:true});
+  apply(lang); setInterval(renderStatus,60000);
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ---------- 3D: bamboo sticky-rice basket (kratip) with lid that lifts on scroll ---------- */
+(function(){
+  if(!window.THREE) return;
+  const T=THREE, reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  try{
+  const canvas=document.getElementById("scene");
+  const renderer=new T.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:"high-performance"});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));
+  renderer.outputEncoding=T.sRGBEncoding; renderer.toneMapping=T.ACESFilmicToneMapping; renderer.toneMappingExposure=1.05;
+  const scene=new T.Scene();
+  const camera=new T.PerspectiveCamera(30,1,.1,100);
+
+  /* warm studio environment for reflections */
+  (function(){
+    const s=new T.Scene();
+    s.add(new T.Mesh(new T.SphereGeometry(20,32,16),new T.MeshBasicMaterial({color:0x17130d,side:T.BackSide})));
+    const panel=(w,h,x,y,z,c)=>{const m=new T.Mesh(new T.PlaneGeometry(w,h),new T.MeshBasicMaterial({color:c,side:T.DoubleSide}));m.position.set(x,y,z);m.lookAt(0,0,0);s.add(m);};
+    panel(12,3,0,10,3,0xfff1d8); panel(3,10,-11,2,3,0xffc77a); panel(3,9,11,0,-2,0x8fb07c); panel(6,3,0,-8,8,0x553820);
+    const pm=new T.PMREMGenerator(renderer); scene.environment=pm.fromScene(s,.035).texture; pm.dispose();
+  })();
+  scene.add(new T.AmbientLight(0xffe8c8,.25));
+  const key=new T.DirectionalLight(0xfff0d6,1.35); key.position.set(4,7,5); scene.add(key);
+  const rim=new T.PointLight(0xe3a531,2.2,22); rim.position.set(-4,3,-3); scene.add(rim);
+  const fill=new T.PointLight(0x9fc48a,.6,20); fill.position.set(5,-1,3); scene.add(fill);
+
+  /* woven bamboo texture (twill) painted on canvas */
+  function weave(){
+    const c=document.createElement("canvas"); c.width=c.height=512; const g=c.getContext("2d");
+    const s=32;
+    for(let y=0;y<512;y+=s){ for(let x=0;x<512;x+=s){
+      const over=(((x/s)+(y/s))%4)<2;
+      const base=over?[212,170,104]:[176,132,74];
+      const j=(Math.random()*18)|0;
+      g.fillStyle=`rgb(${base[0]-j},${base[1]-j},${base[2]-j})`; g.fillRect(x,y,s,s);
+      g.fillStyle="rgba(255,240,200,.18)";
+      if(over){ g.fillRect(x,y+3,s,3); } else { g.fillRect(x+3,y,3,s); }
+      g.strokeStyle="rgba(60,38,16,.55)"; g.lineWidth=1.5;
+      if(over){ g.beginPath(); g.moveTo(x,y+.5); g.lineTo(x+s,y+.5); g.moveTo(x,y+s-.5); g.lineTo(x+s,y+s-.5); g.stroke(); }
+      else { g.beginPath(); g.moveTo(x+.5,y); g.lineTo(x+.5,y+s); g.moveTo(x+s-.5,y); g.lineTo(x+s-.5,y+s); g.stroke(); }
+      for(let k=0;k<6;k++){ g.fillStyle=`rgba(90,60,25,${Math.random()*.25})`; g.fillRect(x+Math.random()*s,y+Math.random()*s,over?6:1,over?1:6); }
+    }}
+    const t=new T.CanvasTexture(c); t.wrapS=t.wrapT=T.RepeatWrapping; t.anisotropy=8; t.encoding=T.sRGBEncoding;
+    const b=new T.CanvasTexture(c); b.wrapS=b.wrapT=T.RepeatWrapping;
+    return [t,b];
+  }
+  const [wTex,wBump]=weave();
+  function bambooMat(rx,ry){
+    const m=wTex.clone(); m.needsUpdate=true; m.repeat.set(rx,ry);
+    const b=wBump.clone(); b.needsUpdate=true; b.repeat.set(rx,ry);
+    return new T.MeshStandardMaterial({map:m,bumpMap:b,bumpScale:.035,roughness:.78,metalness:0,side:T.DoubleSide});
+  }
+
+  const rig=new T.Group(); scene.add(rig);
+  const basket=new T.Group(); rig.add(basket);
+  const body=new T.Mesh(new T.LatheGeometry([[0,0],[.82,0],[.9,.06],[.98,.5],[1.02,1.2],[.99,1.75],[.95,2.02]].map(p=>new T.Vector2(p[0],p[1])),96),bambooMat(7,3));
+  body.position.y=.22; basket.add(body);
+  const foot=new T.Mesh(new T.CylinderGeometry(.8,.86,.24,64,1,true),bambooMat(5,1)); foot.position.y=.12; basket.add(foot);
+  const rimMat=new T.MeshStandardMaterial({color:0x5c3a19,roughness:.6});
+  const rimTop=new T.Mesh(new T.TorusGeometry(.955,.035,12,96),rimMat); rimTop.rotation.x=Math.PI/2; rimTop.position.y=2.24; basket.add(rimTop);
+  /* rice dome inside, made of grains */
+  const grainGeo=new T.SphereGeometry(.05,10,8); grainGeo.scale(1,.55,2.1);
+  const grainMat=new T.MeshPhysicalMaterial({color:0xf8f3ea,roughness:.42,clearcoat:.5,clearcoatRoughness:.3});
+  const NG=420, rice=new T.InstancedMesh(grainGeo,grainMat,NG); const M4=new T.Matrix4(), Q=new T.Quaternion(), E=new T.Euler(), V=new T.Vector3(), S=new T.Vector3(1,1,1);
+  for(let i=0;i<NG;i++){
+    const r=Math.sqrt(Math.random())*.9, a=Math.random()*Math.PI*2;
+    const y=2.16+Math.sqrt(Math.max(0,1-(r/.95)**2))*.38+Math.random()*.03;
+    V.set(Math.cos(a)*r,y,Math.sin(a)*r); E.set(Math.random()*3,Math.random()*3,Math.random()*3); Q.setFromEuler(E);
+    M4.compose(V,Q,S); rice.setMatrixAt(i,M4);
+  }
+  rice.frustumCulled=false; basket.add(rice);
+  /* lid */
+  const lid=new T.Group(); basket.add(lid);
+  const lidMesh=new T.Mesh(new T.LatheGeometry([[1.03,0],[1.04,.36],[1.0,.56],[.86,.72],[.55,.84],[0,.88]].map(p=>new T.Vector2(p[0],p[1])),96),bambooMat(7,1.4));
+  lid.add(lidMesh);
+  const lidRim=new T.Mesh(new T.TorusGeometry(1.035,.04,12,96),rimMat); lidRim.rotation.x=Math.PI/2; lid.add(lidRim);
+  const knot=new T.Mesh(new T.TorusGeometry(.12,.035,10,32),rimMat); knot.position.y=.9; lid.add(knot);
+  /* carrying string */
+  const strap=new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3([new T.Vector3(-1.02,1.6,0),new T.Vector3(-1.25,2.6,.1),new T.Vector3(-.6,3.25,.15),new T.Vector3(.4,3.3,.1),new T.Vector3(1.15,2.7,0),new T.Vector3(1.02,1.6,0)]),80,.028,8,false),new T.MeshStandardMaterial({color:0x7a4a1e,roughness:.85}));
+  basket.add(strap);
+  lid.position.y=2.0;
+  basket.position.y=-1.55;
+
+  /* ingredients: chilli, lime, basil, loose rice grains */
+  function chili(){
+    const g=new T.LatheGeometry([[0,0],[.08,.04],[.12,.18],[.115,.5],[.085,.8],[.045,1.0],[0,1.1]].map(p=>new T.Vector2(p[0],p[1])),32);
+    const pos=g.attributes.position; for(let i=0;i<pos.count;i++){const y=pos.getY(i);pos.setX(i,pos.getX(i)+.28*(y/1.1)**2);} g.computeVertexNormals();
+    const m=new T.Mesh(g,new T.MeshPhysicalMaterial({color:0xc4241a,roughness:.25,clearcoat:1,clearcoatRoughness:.08}));
+    const stem=new T.Mesh(new T.CylinderGeometry(.025,.035,.22,10),new T.MeshStandardMaterial({color:0x4d7a2e,roughness:.6})); stem.position.y=-.08;
+    const cap=new T.Mesh(new T.ConeGeometry(.1,.08,16),stem.material); cap.position.y=.02; cap.rotation.x=Math.PI;
+    const grp=new T.Group(); grp.add(m,stem,cap); return grp;
+  }
+  function limeTex(){
+    const c=document.createElement("canvas"); c.width=c.height=256; const g=c.getContext("2d");
+    g.fillStyle="#3f7d22"; g.beginPath(); g.arc(128,128,128,0,7); g.fill();
+    g.fillStyle="#e9f2c6"; g.beginPath(); g.arc(128,128,116,0,7); g.fill();
+    for(let i=0;i<10;i++){ const a0=i/10*Math.PI*2+.04, a1=(i+1)/10*Math.PI*2-.04;
+      g.fillStyle=i%2?"#b9d65a":"#c4de66"; g.beginPath(); g.moveTo(128,128); g.arc(128,128,106,a0,a1); g.closePath(); g.fill(); }
+    g.fillStyle="#eef5d2"; g.beginPath(); g.arc(128,128,12,0,7); g.fill();
+    const t=new T.CanvasTexture(c); t.encoding=T.sRGBEncoding; return t;
+  }
+  const lt=limeTex();
+  function lime(){
+    const face=new T.MeshPhysicalMaterial({map:lt,roughness:.35,clearcoat:.8,clearcoatRoughness:.15});
+    return new T.Mesh(new T.CylinderGeometry(.42,.42,.07,48),[new T.MeshStandardMaterial({color:0x3f7d22,roughness:.5}),face,face]);
+  }
+  function basil(){
+    const s=new T.Shape(); s.moveTo(0,0); s.quadraticCurveTo(.32,.22,0,.78); s.quadraticCurveTo(-.32,.22,0,0);
+    const g=new T.ExtrudeGeometry(s,{depth:.012,bevelEnabled:false,curveSegments:16});
+    const pos=g.attributes.position; for(let i=0;i<pos.count;i++){const x=pos.getX(i);pos.setZ(i,pos.getZ(i)+x*x*1.3);} g.computeVertexNormals();
+    return new T.Mesh(g,new T.MeshPhysicalMaterial({color:0x2f6b2a,roughness:.35,clearcoat:.6,side:T.DoubleSide}));
+  }
+  const floaters=[];
+  const add=(obj,r,ang,y,spin,scale)=>{obj.scale.setScalar(scale);rig.add(obj);floaters.push({obj,r,ang,y,spin,ph:Math.random()*6});};
+  add(chili(),2.25,.4,.9,.6,1); add(chili(),2.5,2.6,-.4,.5,.85); add(chili(),2.1,4.4,1.7,.7,.7);
+  add(lime(),2.4,1.5,1.4,.4,1); add(lime(),2.3,3.6,.2,.5,.8);
+  add(basil(),2.0,.9,-.8,.8,.9); add(basil(),2.6,2.1,2.0,.7,.8); add(basil(),2.2,5.2,-.2,.9,1); add(basil(),2.4,5.8,1.1,.6,.7);
+  const NF=70, loose=new T.InstancedMesh(grainGeo,grainMat,NF); const looseData=[];
+  for(let i=0;i<NF;i++) looseData.push({r:1.5+Math.random()*2.2,a:Math.random()*6.28,y:(Math.random()-.3)*3.6,s:.15+Math.random()*.25,rx:Math.random()*6,ry:Math.random()*6});
+  loose.frustumCulled=false; rig.add(loose);
+
+  /* steam */
+  const steamTex=(function(){const c=document.createElement("canvas");c.width=c.height=128;const g=c.getContext("2d");const gr=g.createRadialGradient(64,64,4,64,64,64);gr.addColorStop(0,"rgba(255,250,240,.55)");gr.addColorStop(1,"rgba(255,250,240,0)");g.fillStyle=gr;g.fillRect(0,0,128,128);return new T.CanvasTexture(c);})();
+  const steam=[];
+  for(let i=0;i<26;i++){const sp=new T.Sprite(new T.SpriteMaterial({map:steamTex,transparent:true,depthWrite:false,opacity:0}));sp.userData={t:Math.random()};basket.add(sp);steam.push(sp);}
+
+  /* layout */
+  let mobile=false;
+  function resize(){
+    const w=canvas.clientWidth,h=canvas.clientHeight; if(!w||!h) return;
+    renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix();
+    mobile=w<820; rig.position.x=mobile?0:1.9; rig.position.y=mobile?-1.05:0; rig.scale.setScalar(mobile?.8:1);
+  }
+  new ResizeObserver(resize).observe(canvas); resize();
+  let mx=0,my=0; addEventListener("pointermove",e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5;},{passive:true});
+  let visible=true; new IntersectionObserver(es=>{visible=es[0].isIntersecting;}).observe(canvas);
+  const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2, cl=(v)=>Math.min(1,Math.max(0,v));
+  const clock=new T.Clock(); let sp=0;
+  const camA=new T.Vector3(0,1.2,10.5), camB=new T.Vector3(0,3.6,8.2), look=new T.Vector3(), tmp=new T.Vector3();
+
+  (function loop(){
+    requestAnimationFrame(loop);
+    if(!visible) return;
+    const t=reduce?0:clock.getElapsedTime();
+    const target=window.heroP?window.heroP():0; sp+=(target-sp)*(reduce?1:.07);
+    const open=ease(cl((sp-.12)/.5));
+    lid.position.y=2.0+open*1.35; lid.position.x=open*.35; lid.rotation.z=-open*.32;
+    basket.rotation.y=t*.12+sp*1.4; basket.rotation.x=.08+open*.12;
+    basket.position.y=-1.55+Math.sin(t*1.1)*.04;
+    /* camera dolly toward the open basket */
+    tmp.copy(camA).lerp(camB,ease(cl(sp/.8)));
+    camera.position.set(tmp.x+mx*.6,tmp.y-my*.35,tmp.z);
+    look.set(rig.position.x*.08,(mobile?1.05:rig.position.y+.15)+open*.5,0); camera.lookAt(look);
+    floaters.forEach((f,k)=>{
+      const a=f.ang+t*.16+sp*1.2, r=f.r*(1-open*.12);
+      f.obj.position.set(Math.cos(a)*r,f.y+Math.sin(t*.8+f.ph)*.18,Math.sin(a)*r*.7);
+      f.obj.rotation.set(t*f.spin*.6+f.ph,t*f.spin+f.ph,Math.sin(t*.5+k)*.6);
+    });
+    for(let i=0;i<NF;i++){const d=looseData[i];const a=d.a+t*(.05+d.s*.2)+sp*.8;
+      V.set(Math.cos(a)*d.r,d.y+Math.sin(t*.7+i)*.12,Math.sin(a)*d.r*.7); E.set(d.rx+t*.6,d.ry+t*.4,0); Q.setFromEuler(E); M4.compose(V,Q,S); loose.setMatrixAt(i,M4);}
+    loose.instanceMatrix.needsUpdate=true;
+    const rate=.25+open*.75;
+    steam.forEach(s=>{const u=s.userData; u.t+= (reduce?0:.0045)*(.6+rate);
+      if(u.t>1){u.t=0;u.x=(Math.random()-.5)*.8;u.z=(Math.random()-.5)*.8;}
+      const k=u.t; s.position.set((u.x||0)+Math.sin(k*6+u.t)*.15,2.35+k*2.6,(u.z||0)); const sc=.5+k*1.6; s.scale.set(sc,sc,1);
+      s.material.opacity=Math.sin(k*Math.PI)*.32*rate;});
+    renderer.render(scene,camera);
+  })();
+  }catch(e){ const c=document.getElementById("scene"); if(c) c.remove(); }
+})();
+</script>
+</body>
+</html>
